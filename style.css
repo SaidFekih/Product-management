@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: content-box;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+
+body {
+  box-sizing: content-box;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+
+.container {
+  height: 100vh;
+  background: #212529;
+  color: white;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 30px;
+  text-align: center;
+}
+
+.head {
+  padding: 30px 0 30px 0;
+  text-transform: uppercase;
+}
+
+.head h1 {
+  font-size: 52px;
+}
+
+.head p {
+  font-size: 25px;
+}
+
+input {
+  width: 100%;
+  height: 30px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding-left: 10px;
+  background-color: #0b0c0e;
+  margin: 3px 0px;
+  padding: 3px;
+  color: white;
+  font-size: 1.1em;
+}
+
+input:focus {
+  background: black;
+  transform: scale(1.05);
+}
+
+#title {
+  width: 100%;
+}
+
+.productPricing {
+  display: flex;
+}
+
+.productPricing input, .productPricing p {
+  width: 20%;
+  margin-right: 7px;
+}
+
+.productPricing p {
+  background-color: #fd4d4d;
+  margin: 3px 0px;
+  padding: 3px;
+  color: white;
+  font-size: 1.1em;
+  height: 28px;
+  border-radius: 5px;
+  padding-left: 10px;
+  text-align: justify;
+}
+
+.productPricing p::before {
+  content: "Total : ";
+}
+
+button {
+  width: 100%;
+  background-color: #96d3f0;
+  margin: 3px 0px;
+  padding: 3px;
+  font-size: 1.1em;
+  height: 28px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: white;
+  transition: 0.5s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  letter-spacing: 1px;
+  background-color: #48b8ec;
+}
+
+.outputs-section {
+  margin-top: 30px;
+}
+
+.search-btn-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-btn-section button {
+  width: 45%;
+}
+
+table {
+  width: 100%;
+  margin: 10px 0;
+}
+
+thead {
+  text-transform: uppercase;
+}
+
+th, td {
+  padding: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
