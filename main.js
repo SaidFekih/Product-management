@@ -9,6 +9,8 @@ let category = "";
 let submitProduct = "";
 let search = "";
 let dataItems = [];
+let tbBody ="";
+
 
 if (localStorage.product != null) {
     dataItems = JSON.parse(localStorage.product);
@@ -18,8 +20,7 @@ else {
 }
 
 class Item {
-    constructor(id, title, price, taxes, options, discount, category) {
-        this.id = id;
+    constructor( title, price, taxes, options, discount, category) {
         this.title = title;
         this.price = price;
         this.taxes = taxes;
@@ -31,6 +32,9 @@ class Item {
 
 setTimeout(() => {
     setVariable()
+    if(dataItems !=''){
+        displayData()
+    }
 }, 50);
 
 function setVariable() {
@@ -45,6 +49,7 @@ function setVariable() {
     category = document.getElementById("category");
     submitProduct = document.getElementById("submit");
     search = document.getElementById("search");
+    tbBody = document.getElementById("tbBody");
 
     console.log(title, price, taxes, options, discount, count, total, category, search)
 
@@ -80,7 +85,8 @@ function createProduct() {
     dataItems.push(newItem);
     console.log(dataItems);
     saveLocalStorage();
-    clearInputs()
+    clearInputs();
+    displayData();
 }
 
 //save data in localstorage
@@ -102,8 +108,29 @@ function clearInputs(){
 
 }
 
-
 //Read data
+function displayData(){ 
+    let table = '';
+    console.log(dataItems.length)
+
+    for(let i=0 ; i < dataItems.length;i++){
+        console.log(i)
+        table += `
+        <tr>
+            <td id="tdid">${i}</td>
+            <td id="tdtitle">${dataItems[i].title}</td>
+            <td id="tdprice">${dataItems[i].price}</td>
+            <td id="tdtaxes">${dataItems[i].taxes}</td>
+            <td id="tdOptions">${dataItems[i].options}</td>
+            <td id="tddiscount">${dataItems[i].discount}</td>
+            <td id="tdtotal">${dataItems[i].total}</td>
+            <td id="tdcategory">${dataItems[i].category}</td>
+            <td><button id="update">update</button></td>
+            <td><button id="delet">delete</button></td>
+        </tr> `;
+    }
+    tbBody.innerHTML=table;
+}
 //Count
 //Delete
 //Pudate
