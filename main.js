@@ -10,7 +10,14 @@ let submitProduct = "";
 let search = "";
 let dataItems = [];
 let tbBody ="";
+let deleteSection ="";
 
+setTimeout(() => {
+    setVariable()
+    if(dataItems !=''){
+        displayData()
+    }
+}, 50);
 
 if (localStorage.product != null) {
     dataItems = JSON.parse(localStorage.product);
@@ -30,12 +37,7 @@ class Item {
     }
 }
 
-setTimeout(() => {
-    setVariable()
-    if(dataItems !=''){
-        displayData()
-    }
-}, 50);
+
 
 function setVariable() {
 
@@ -50,6 +52,7 @@ function setVariable() {
     submitProduct = document.getElementById("submit");
     search = document.getElementById("search");
     tbBody = document.getElementById("tbBody");
+    deleteSection = document.getElementById("deleteAllSection");
 
     console.log(title, price, taxes, options, discount, count, total, category, search)
 
@@ -130,7 +133,12 @@ function displayData(){
         </tr> `;
     }
     tbBody.innerHTML=table;
+    
+    if(dataItems.length > 0){
+        deleteSection.innerHTML =`<button onclick="deleteAllData()" id="deleteAll">Delete all</button>`;
+    }
 }
+
 //Delete
 function deleteData(index){
 
@@ -139,6 +147,19 @@ function deleteData(index){
     localStorage.product = (JSON.stringify(dataItems));
     displayData();
 }
+
+//Delete all data
+function deleteAllData(){
+    
+    console.log("Before" + dataItems);
+    dataItems.splice(0, dataItems.length);
+    localStorage.product = (JSON.stringify(dataItems));
+    console.log("After " + dataItems);
+    document.getElementById("deleteAll").remove()
+    
+    displayData();
+}
+
 //Count
 
 //Pudate
