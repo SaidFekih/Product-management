@@ -126,13 +126,21 @@ function displayData(){
             <td id="tdtotal">${dataItems[i].total}</td>
             <td id="tdcategory">${dataItems[i].category}</td>
             <td><button id="update">update</button></td>
-            <td><button id="delet">delete</button></td>
+            <td><button onclick="deleteData(${i})" id="delet">delete</button></td>
         </tr> `;
     }
     tbBody.innerHTML=table;
 }
-//Count
 //Delete
+function deleteData(index){
+
+    dataItems.splice(index,1);
+    console.log(dataItems)
+    localStorage.product = (JSON.stringify(dataItems));
+    displayData();
+}
+//Count
+
 //Pudate
 //searche
 //clean data
