@@ -21,15 +21,15 @@
         <div class="inputs-section">
             <input placeholder="Title" type="text" id="title" class="">
             <div class="productPricing">
-                <input type="number" placeholder="Price" id="price">
-                <input type="number" placeholder="Taxes" id="taxes">
-                <input type="number" placeholder="Options" id="options">
-                <input type="number" placeholder="Discount" id="discount">
-                <p class="bg-danger" id="total"></p>
+                <input onkeyup="getTotal()"  type="number" placeholder="Price" id="price">
+                <input onkeyup="getTotal()" type="number" placeholder="Taxes" id="taxes">
+                <input onkeyup="getTotal()" type="number" placeholder="Options" id="options">
+                <input onkeyup="getTotal()" type="number" placeholder="Discount" id="discount">
+                <p class="bg-danger" onchange="changed()" id="total"></p>
             </div>
             <input placeholder="Count" type="text" id="count">
             <input placeholder="Category" type="text" id="category">
-            <button>Create</button>
+            <button id="submit" onclick="createProduct()">Create</button>
         </div>
 
         <div class="outputs-section">
