@@ -11,6 +11,9 @@ let search = "";
 let dataItems = [];
 let tbBody = "";
 let deleteSection = "";
+let mode = 'create';
+let tmp;
+
 
 setTimeout(() => {
     setVariable()
@@ -27,13 +30,15 @@ else {
 }
 
 class Item {
-    constructor(title, price, taxes, options, discount, category) {
+    constructor(id, title, price, taxes, options, discount, category, total) {
+        this.id;
         this.title = title;
         this.price = price;
         this.taxes = taxes;
         this.options = options;
         this.discount = discount;
         this.category = category;
+        this.total = total;
     }
 }
 
@@ -53,6 +58,7 @@ function setVariable() {
     search = document.getElementById("search");
     tbBody = document.getElementById("tbBody");
     deleteSection = document.getElementById("deleteAllSection");
+    var totalPrice = '';
 
     console.log(title, price, taxes, options, discount, count, total, category, search)
 
@@ -61,7 +67,7 @@ function setVariable() {
 function getTotal() {
     if (price.value != '' && price.value > 0) {
 
-        let totalPrice = (+price.value + +taxes.value + +options.value) - +discount.value;
+        totalPrice = (+price.value + +taxes.value + +options.value) - +discount.value;
         total.innerHTML = totalPrice;
         console.log(totalPrice);
 
@@ -84,9 +90,24 @@ function getTotal() {
 //Create product
 function createProduct() {
 
-    let newItem = new Item(0, title.value, price.value, taxes.value, options.value, discount.value, category.value);
-    dataItems.push(newItem);
-    console.log(dataItems);
+    let newItem = new Item(0, title.value, price.value, taxes.value, options.value, discount.value, category.value, totalPrice);
+    if (mode == 'create') {
+        alert("create")
+        if (count.value === '') {
+
+            dataItems.push(newItem);
+        }
+        else {
+            createMultipleItem(count.value);
+        }
+    } 
+    else {
+        alert("Update");
+        dataItems[tmp] = newItem;
+        mode ='create';
+        submitProduct.textContent = "Create";
+        count.style.display = "block";
+    }
     saveLocalStorage();
     clearInputs();
     displayData();
@@ -105,10 +126,10 @@ function clearInputs() {
     taxes.value = '';
     options.value = '';
     discount.value = '';
-    total.value = '';
+    total.textContent = '';
     count.value = '';
     category.value = '';
-
+    getTotal();
 }
 
 //Read data
@@ -128,14 +149,14 @@ function displayData() {
             <td id="tddiscount">${dataItems[i].discount}</td>
             <td id="tdtotal">${dataItems[i].total}</td>
             <td id="tdcategory">${dataItems[i].category}</td>
-            <td><button id="update">update</button></td>
+            <td><button onclick="getDataToUpdate(${i})" id="update">update</button></td>
             <td><button onclick="deleteData(${i})" id="delet">delete</button></td>
         </tr> `;
     }
     tbBody.innerHTML = table;
 
     if (dataItems.length > 0) {
-        deleteSection.innerHTML = `<button onclick="deleteAllData()" id="deleteAll">Delete all</button>`;
+        deleteSection.innerHTML = `<button onclick="deleteAllData()" id="deleteAll">Delete all  (${dataItems.length})</button>`;
     }
 }
 
@@ -151,20 +172,40 @@ function deleteData(index) {
 //Delete all data
 function deleteAllData() {
 
-    console.log("Before" + dataItems);
     dataItems.splice(0, dataItems.length);
-    localStorage.product = (JSON.stringify(dataItems));
-    console.log("After " + dataItems);
+    localStorage.clear();
     document.getElementById("deleteAll").remove()
 
     displayData();
 }
 
 //Count
+function createMultipleItem(numberOfItems) {
+    for (i = 0; i < numberOfItems; i++) {
+        let newItem = new Item(0, title.value, price.value, taxes.value, options.value, discount.value, category.value, totalPrice);
+        dataItems.push(newItem);
+    }
+}
 
 //Pudate
+function getDataToUpdate(i) {
+
+    title.value = dataItems[i].title;
+    price.value = dataItems[i].price;
+    taxes.value = dataItems[i].taxes;
+    options.value = dataItems[i].options;
+    discount.value = dataItems[i].discount;
+    category.value = dataItems[i].category;
+    getTotal()
+    count.style.display = "none";
+    submitProduct.textContent = "Update";
+    mode = 'update';
+    tmp = i;
+
+}
+
 //searche
-//clean data
+
 
 function changed() {
     console.log("changed")
@@ -179,7 +220,7 @@ function said() {
         title: 'Error!',
         text: 'Do you want to continue',
         icon: 'error',
-        confirmButtonColor:"#48b8ec",
+        confirmButtonColor: "#48b8ec",
         confirmButtonText: 'OK'
     })
 }
