@@ -13,7 +13,7 @@ let tbBody = "";
 let deleteSection = "";
 let mode = 'create';
 let tmp;
-let indexResultSearch=[];
+let indexResultSearch = [];
 let serchMood = 'byTitle';
 
 setTimeout(() => {
@@ -43,8 +43,6 @@ class Item {
     }
 }
 
-
-
 function setVariable() {
 
     title = document.getElementById("title");
@@ -67,7 +65,6 @@ function getTotal() {
 
         totalPrice = (+price.value + +taxes.value + +options.value) - +discount.value;
         total.innerHTML = totalPrice;
-        console.log(totalPrice);
 
         if (totalPrice != '') {
             total.style.backgroundColor = 'green'
@@ -87,28 +84,33 @@ function getTotal() {
 
 //Create product
 function createProduct() {
+    if(title.value){
+        let newItem = new Item(0, title.value, price.value, taxes.value, options.value, discount.value, category.value, totalPrice);
+        if (mode == 'create') {
+            if (count.value === '') {
 
-    let newItem = new Item(0, title.value, price.value, taxes.value, options.value, discount.value, category.value, totalPrice);
-    if (mode == 'create') {
-        alert("create")
-        if (count.value === '') {
-
-            dataItems.push(newItem);
+                dataItems.push(newItem);
+            }
+            else {
+                createMultipleItem(count.value);
+            }
         }
         else {
-            createMultipleItem(count.value);
+            dataItems[tmp] = newItem;
+            mode = 'create';
+            submitProduct.textContent = "Create";
+            count.style.display = "block";
         }
+        saveLocalStorage();
+        clearInputs();
+        displayData();
+
     }
-    else {
-        alert("Update");
-        dataItems[tmp] = newItem;
-        mode = 'create';
-        submitProduct.textContent = "Create";
-        count.style.display = "block";
+    else{
+        //alert("vide")
+
+        alertBox("Missing Data", "Please check all fields !!!")
     }
-    saveLocalStorage();
-    clearInputs();
-    displayData();
 }
 
 //save data in localstorage
@@ -119,7 +121,7 @@ function saveLocalStorage() {
 
 //Clean inputs
 function clearInputs() {
-    title.value = '';
+    title.value = "";
     price.value = '';
     taxes.value = '';
     options.value = '';
@@ -135,7 +137,6 @@ function displayData() {
     let table = '';
 
     for (let i = 0; i < dataItems.length; i++) {
-        console.log(i)
         table += `
         <tr>
             <td id="tdid">${i}</td>
@@ -161,7 +162,6 @@ function displayData() {
 function deleteData(index) {
 
     dataItems.splice(index, 1);
-    console.log(dataItems)
     localStorage.product = (JSON.stringify(dataItems));
     displayData();
 }
@@ -206,24 +206,23 @@ function searchMode(serchBy) {
 
     if (serchBy == 'serchByTitle') {
 
-        serchMood ="byTitle"
-        search.placeholder="Search by title"
+        serchMood = "byTitle"
+        search.placeholder = "Search by title"
 
     } else {
 
-        serchMood ="byCategory"
-        search.placeholder="Search by category"
+        serchMood = "byCategory"
+        search.placeholder = "Search by category"
 
     }
     search.focus();
 }
-function searchItem(searchThisItem){
-   let table='';
-    if(serchMood =='byTitle'){
+function searchItem(searchThisItem) {
+    let table = '';
+    for (i = 0; i < dataItems.length; i++) {
+        if (serchMood == 'byTitle') {
 
-        for(i=0;i<dataItems.length; i++){
-
-            if(dataItems[i].title.toLowerCase().includes(searchThisItem.toLowerCase())) {
+            if (dataItems[i].title.toLowerCase().includes(searchThisItem.toLowerCase())) {
                 table += `
                 <tr>
                     <td id="tdid">${i}</td>
@@ -239,13 +238,9 @@ function searchItem(searchThisItem){
                 </tr> `;
             }
 
-        }
+        } else {
 
-    }else{
-
-        for(i=0;i<dataItems.length; i++){
-
-            if(dataItems[i].category.toLowerCase().includes(searchThisItem.toLowerCase())) {
+            if (dataItems[i].category.toLowerCase().includes(searchThisItem.toLowerCase())) {
                 table += `
                 <tr>
                     <td id="tdid">${i}</td>
@@ -262,22 +257,15 @@ function searchItem(searchThisItem){
             }
         }
     }
-    
+
     tbBody.innerHTML = table;
 }
 
-function changed() {
-    console.log("changed")
-    console.log(price.value)
-    console.log(taxes.value)
-    console.log(options.value)
-    console.log(discount.value)
-    console.log()
-}
-function said() {
+function alertBox(title, text) {
+
     Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
+        title: title,
+        text: text,
         icon: 'error',
         confirmButtonColor: "#48b8ec",
         confirmButtonText: 'OK'
