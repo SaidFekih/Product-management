@@ -13,7 +13,8 @@ let tbBody = "";
 let deleteSection = "";
 let mode = 'create';
 let tmp;
-
+let indexResultSearch=[];
+let serchMood = 'byTitle';
 
 setTimeout(() => {
     setVariable()
@@ -59,9 +60,6 @@ function setVariable() {
     tbBody = document.getElementById("tbBody");
     deleteSection = document.getElementById("deleteAllSection");
     var totalPrice = '';
-
-    console.log(title, price, taxes, options, discount, count, total, category, search)
-
 }
 //Get total
 function getTotal() {
@@ -100,11 +98,11 @@ function createProduct() {
         else {
             createMultipleItem(count.value);
         }
-    } 
+    }
     else {
         alert("Update");
         dataItems[tmp] = newItem;
-        mode ='create';
+        mode = 'create';
         submitProduct.textContent = "Create";
         count.style.display = "block";
     }
@@ -135,7 +133,6 @@ function clearInputs() {
 //Read data
 function displayData() {
     let table = '';
-    console.log(dataItems.length)
 
     for (let i = 0; i < dataItems.length; i++) {
         console.log(i)
@@ -205,7 +202,69 @@ function getDataToUpdate(i) {
 }
 
 //searche
+function searchMode(serchBy) {
 
+    if (serchBy == 'serchByTitle') {
+
+        serchMood ="byTitle"
+        search.placeholder="Search by title"
+
+    } else {
+
+        serchMood ="byCategory"
+        search.placeholder="Search by category"
+
+    }
+    search.focus();
+}
+function searchItem(searchThisItem){
+   let table='';
+    if(serchMood =='byTitle'){
+
+        for(i=0;i<dataItems.length; i++){
+
+            if(dataItems[i].title.toLowerCase().includes(searchThisItem.toLowerCase())) {
+                table += `
+                <tr>
+                    <td id="tdid">${i}</td>
+                    <td id="tdtitle">${dataItems[i].title}</td>
+                    <td id="tdprice">${dataItems[i].price}</td>
+                    <td id="tdtaxes">${dataItems[i].taxes}</td>
+                    <td id="tdOptions">${dataItems[i].options}</td>
+                    <td id="tddiscount">${dataItems[i].discount}</td>
+                    <td id="tdtotal">${dataItems[i].total}</td>
+                    <td id="tdcategory">${dataItems[i].category}</td>
+                    <td><button onclick="getDataToUpdate(${i})" id="update">update</button></td>
+                    <td><button onclick="deleteData(${i})" id="delet">delete</button></td>
+                </tr> `;
+            }
+
+        }
+
+    }else{
+
+        for(i=0;i<dataItems.length; i++){
+
+            if(dataItems[i].category.toLowerCase().includes(searchThisItem.toLowerCase())) {
+                table += `
+                <tr>
+                    <td id="tdid">${i}</td>
+                    <td id="tdtitle">${dataItems[i].title}</td>
+                    <td id="tdprice">${dataItems[i].price}</td>
+                    <td id="tdtaxes">${dataItems[i].taxes}</td>
+                    <td id="tdOptions">${dataItems[i].options}</td>
+                    <td id="tddiscount">${dataItems[i].discount}</td>
+                    <td id="tdtotal">${dataItems[i].total}</td>
+                    <td id="tdcategory">${dataItems[i].category}</td>
+                    <td><button onclick="getDataToUpdate(${i})" id="update">update</button></td>
+                    <td><button onclick="deleteData(${i})" id="delet">delete</button></td>
+                </tr> `;
+            }
+        }
+    }
+    
+    tbBody.innerHTML = table;
+}
 
 function changed() {
     console.log("changed")

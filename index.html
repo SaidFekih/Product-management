@@ -35,10 +35,10 @@
         </div>
 
         <div class="outputs-section">
-            <input id="search" placeholder="Search" type="text">
+            <input onkeyup="searchItem(this.value)" id="search" placeholder="Search by title" type="text">
             <div class="search-btn-section">
-                <button onclick="displayData()">Search By Title</button>
-                <button>Search By Category</button>
+                <button id="serchByTitle" onclick="searchMode(this.id)">Search By Title</button>
+                <button id="serchByCategory" onclick="searchMode(this.id)">Search By Category</button>
             </div>
             <div id="deleteAllSection">
 
