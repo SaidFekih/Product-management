@@ -9,12 +9,12 @@ let category = "";
 let submitProduct = "";
 let search = "";
 let dataItems = [];
-let tbBody ="";
-let deleteSection ="";
+let tbBody = "";
+let deleteSection = "";
 
 setTimeout(() => {
     setVariable()
-    if(dataItems !=''){
+    if (dataItems != '') {
         displayData()
     }
 }, 50);
@@ -27,7 +27,7 @@ else {
 }
 
 class Item {
-    constructor( title, price, taxes, options, discount, category) {
+    constructor(title, price, taxes, options, discount, category) {
         this.title = title;
         this.price = price;
         this.taxes = taxes;
@@ -93,30 +93,30 @@ function createProduct() {
 }
 
 //save data in localstorage
-function saveLocalStorage(){
+function saveLocalStorage() {
 
     localStorage.setItem('product', JSON.stringify(dataItems))
 }
 
 //Clean inputs
-function clearInputs(){
-     title.value ='';
-     price.value ='';
-     taxes.value ='';
-     options.value ='';
-     discount.value ='';
-     total.value ='';
-     count.value ='';
-     category.value ='';
+function clearInputs() {
+    title.value = '';
+    price.value = '';
+    taxes.value = '';
+    options.value = '';
+    discount.value = '';
+    total.value = '';
+    count.value = '';
+    category.value = '';
 
 }
 
 //Read data
-function displayData(){ 
+function displayData() {
     let table = '';
     console.log(dataItems.length)
 
-    for(let i=0 ; i < dataItems.length;i++){
+    for (let i = 0; i < dataItems.length; i++) {
         console.log(i)
         table += `
         <tr>
@@ -132,31 +132,31 @@ function displayData(){
             <td><button onclick="deleteData(${i})" id="delet">delete</button></td>
         </tr> `;
     }
-    tbBody.innerHTML=table;
-    
-    if(dataItems.length > 0){
-        deleteSection.innerHTML =`<button onclick="deleteAllData()" id="deleteAll">Delete all</button>`;
+    tbBody.innerHTML = table;
+
+    if (dataItems.length > 0) {
+        deleteSection.innerHTML = `<button onclick="deleteAllData()" id="deleteAll">Delete all</button>`;
     }
 }
 
 //Delete
-function deleteData(index){
+function deleteData(index) {
 
-    dataItems.splice(index,1);
+    dataItems.splice(index, 1);
     console.log(dataItems)
     localStorage.product = (JSON.stringify(dataItems));
     displayData();
 }
 
 //Delete all data
-function deleteAllData(){
-    
+function deleteAllData() {
+
     console.log("Before" + dataItems);
     dataItems.splice(0, dataItems.length);
     localStorage.product = (JSON.stringify(dataItems));
     console.log("After " + dataItems);
     document.getElementById("deleteAll").remove()
-    
+
     displayData();
 }
 
@@ -173,4 +173,13 @@ function changed() {
     console.log(options.value)
     console.log(discount.value)
     console.log()
+}
+function said() {
+    Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonColor:"#48b8ec",
+        confirmButtonText: 'OK'
+    })
 }

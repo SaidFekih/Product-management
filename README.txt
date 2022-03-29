@@ -17,3 +17,4 @@ Utilisation de Bootstrap :
 
 
 How to use Utility Bootstrap v5 : https://www.youtube.com/watch?v=4k3AiwXrfig
+How to use sweetAlert@ : https://sweetalert2.github.io/
