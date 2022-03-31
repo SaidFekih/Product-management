@@ -18,3 +18,11 @@ Utilisation de Bootstrap :
 
 How to use Utility Bootstrap v5 : https://www.youtube.com/watch?v=4k3AiwXrfig
 How to use sweetAlert@ : https://sweetalert2.github.io/
+
+
+******* Integration de TypeScript *****************
+
+1 : tsc --init                                  Installation du TypeScript
+2 : tsconrig.json								Configurer le fichier "rootDir": "./src" et "outDir": "./dist" 
+3 : app.tsc										Creation du fichier app.ts dans src 
+4 : tsc --watch									Creation du fichier app.js dans dist 
