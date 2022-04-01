@@ -1,68 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
-    <script src="main.js"></script>
+    <link
+      rel="stylesheet"
+      href="node_modules/sweetalert2/dist/sweetalert2.min.css"
+    />
     <title>Product managment</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-
-        <div class="head">
-            <h1>GWX</h1>
-            <p>Product management systme</p>
+      <div class="head">
+        <h1>GWX</h1>
+        <p>Product management systme</p>
+      </div>
+      <button onclick="getTotal()" class="btn">Test</button>
+      <div class="inputs-section">
+        <input placeholder="Title" type="text" id="title" class="" />
+        <div class="productPricing">
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="Price"
+            id="price"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="Taxes"
+            id="taxes"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="Options"
+            id="options"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="Discount"
+            id="discount"
+          />
+          <p class="bg-danger" onchange="changed()" id="total"></p>
         </div>
+        <input placeholder="Count" type="text" id="count" />
+        <input placeholder="Category" type="text" id="category" />
+        <button id="submit" onclick="createProduct()">Create</button>
+      </div>
 
-        <div class="inputs-section">
-            <input placeholder="Title" type="text" id="title" class="">
-            <div class="productPricing">
-                <input onkeyup="getTotal()"  type="number" placeholder="Price" id="price">
-                <input onkeyup="getTotal()" type="number" placeholder="Taxes" id="taxes">
-                <input onkeyup="getTotal()" type="number" placeholder="Options" id="options">
-                <input onkeyup="getTotal()" type="number" placeholder="Discount" id="discount">
-                <p class="bg-danger" onchange="changed()" id="total"></p>
-            </div>
-            <input placeholder="Count" type="text" id="count">
-            <input placeholder="Category" type="text" id="category">
-            <button id="submit" onclick="createProduct()">Create</button>
+      <div class="outputs-section">
+        <input
+          onkeyup="searchItem(this.value)"
+          id="search"
+          placeholder="Search by title"
+          type="text"
+        />
+        <div class="search-btn-section">
+          <button id="serchByTitle" onclick="searchMode(this.id)">
+            Search By Title
+          </button>
+          <button id="serchByCategory" onclick="searchMode(this.id)">
+            Search By Category
+          </button>
         </div>
-
-        <div class="outputs-section">
-            <input onkeyup="searchItem(this.value)" id="search" placeholder="Search by title" type="text">
-            <div class="search-btn-section">
-                <button id="serchByTitle" onclick="searchMode(this.id)">Search By Title</button>
-                <button id="serchByCategory" onclick="searchMode(this.id)">Search By Category</button>
-            </div>
-            <div id="deleteAllSection">
-
-            </div>
-            <table>
-                <thead>
-                    <th>id</th>
-                    <th>title</th>
-                    <th>price</th>
-                    <th>taxes</th>
-                    <th>Options</th>
-                    <th>discount</th>
-                    <th>total</th>
-                    <th>category</th>
-                    <th>update</th>
-                    <th>delete</th>
-                </thead>
-                <tbody id="tbBody">
-                  
-                </tbody>
-            </table>
-        </div>
+        <div id="deleteAllSection"></div>
+        <table>
+          <thead>
+            <th>id</th>
+            <th>title</th>
+            <th>price</th>
+            <th>taxes</th>
+            <th>Options</th>
+            <th>discount</th>
+            <th>total</th>
+            <th>category</th>
+            <th>update</th>
+            <th>delete</th>
+          </thead>
+          <tbody id="tbBody"></tbody>
+        </table>
+      </div>
     </div>
-
-</body>
-
+    <script src="dist/app.js"></script>
+  </body>
 </html>
